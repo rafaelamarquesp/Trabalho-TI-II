@@ -1,98 +1,93 @@
-    /*     body {
-        background-color: beige;
-    }
-    Main page  */
-    
-    body {
-        background: linear-gradient(white, rgb(224, 224, 224), grey);
-    }
-    
-    nav#bar {
-        background-color: linear-gradient( white, rgb(224, 224, 224), grey);
-    }
-    
-    div {
-        background-color: linear-gradient( white, rgb(224, 224, 224), grey);
-        color: darkmagenta;
-    }
-    
-    a#login {
-        background-color: transparent;
-        border-color: grey;
-        color: darkmagenta;
-    }
-    
-    a#signup {
-        background-color: transparent;
-        border-color: grey;
-        color: darkmagenta;
-    }
-    
-    .navbar-nav .nav-link.active,
-    .navbar-nav .show>.nav-link {
-        font-weight: 650;
-    }
-    
-    a#movies {
-        background-color: transparent;
-        border-color: grey;
-        color: darkmagenta;
-    }
-    
-    a#series {
-        background-color: transparent;
-        border-color: grey;
-        color: darkmagenta;
-    }
-    
-    button#menu {
-        background-color: transparent;
-        border-color: grey;
-        color: darkmagenta;
-    }
-    
-    button#submit {
-        background-color: white;
-        border-color: rgb(204, 204, 204);
-        color: darkmagenta;
-    }
-    
-    button#submit:hover {
-        background-color: darkmagenta;
-        border-color: grey;
-        color: white;
-    }
-    
-    button#search {
-        background-color: white;
-        border-color: rgb(134, 134, 134);
-        color: darkmagenta;
-    }
-    
-    #searchBar {
-        border-color: grey;
-        background-color: white;
-    }
-    
-    button#search:hover {
-        background-color: darkmagenta;
-        border-color: grey;
-        color: white;
-    }
-    
-    a#link {
-        text-decoration: none;
-        color: darkmagenta;
-    }
-    
-    h2#Signup {
-        background-color: white;
-        text-align: left;
-        color: darkmagenta;
-    }
-    
-    h2#Login {
-        background-color: white;
-        text-align: left;
-        color: darkmagenta;
-    }
+ body {
+     background: linear-gradient(white, rgb(224, 224, 224), grey);
+ }
+ 
+ nav#bar {
+     background-color: linear-gradient( white, rgb(224, 224, 224), grey);
+ }
+ 
+ div {
+     background-color: linear-gradient( white, rgb(224, 224, 224), grey);
+     color: darkmagenta;
+ }
+ 
+ a#login {
+     background-color: transparent;
+     border-color: grey;
+     color: darkmagenta;
+ }
+ 
+ a#signup {
+     background-color: transparent;
+     border-color: grey;
+     color: darkmagenta;
+ }
+ 
+ .navbar-nav .nav-link.active,
+ .navbar-nav .show>.nav-link {
+     font-weight: 650;
+ }
+ 
+ a#movies {
+     background-color: transparent;
+     border-color: grey;
+     color: darkmagenta;
+ }
+ 
+ a#series {
+     background-color: transparent;
+     border-color: grey;
+     color: darkmagenta;
+ }
+ 
+ button#menu {
+     background-color: transparent;
+     border-color: grey;
+     color: darkmagenta;
+ }
+ 
+ button#submit {
+     background-color: white;
+     border-color: rgb(204, 204, 204);
+     color: darkmagenta;
+ }
+ 
+ button#submit:hover {
+     background-color: darkmagenta;
+     border-color: grey;
+     color: white;
+ }
+ 
+ button#search {
+     background-color: white;
+     border-color: rgb(134, 134, 134);
+     color: darkmagenta;
+ }
+ 
+ #searchBar {
+     border-color: grey;
+     background-color: white;
+ }
+ 
+ button#search:hover {
+     background-color: darkmagenta;
+     border-color: grey;
+     color: white;
+ }
+ 
+ a#link {
+     text-decoration: none;
+     color: darkmagenta;
+ }
+ 
+ h2#Signup {
+     background-color: white;
+     text-align: left;
+     color: darkmagenta;
+ }
+ 
+ h2#Login {
+     background-color: white;
+     text-align: left;
+     color: darkmagenta;
+ }
