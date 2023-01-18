@@ -1,26 +1,20 @@
  body {
-     background: linear-gradient(white, rgb(224, 224, 224), grey);
+     background: linear-gradient(white, #e0e0e0, grey);
  }
  
  nav#bar {
      background-color: linear-gradient( white, rgb(224, 224, 224), grey);
  }
  
- div {
-     background-color: linear-gradient( white, rgb(224, 224, 224), grey);
+ label#titulo {
+     /* background-color: linear-gradient( white, rgb(224, 224, 224), grey); */
      color: darkmagenta;
  }
  
- a#login {
+ .nav-link {
      background-color: transparent;
      border-color: grey;
-     color: darkmagenta;
- }
- 
- a#signup {
-     background-color: transparent;
-     border-color: grey;
-     color: darkmagenta;
+     color: darkmagenta!important;
  }
  
  .navbar-nav .nav-link.active,
@@ -90,4 +84,8 @@
      background-color: white;
      text-align: left;
      color: darkmagenta;
+ }
+ 
+ #filler {
+     flex-grow: 1;
  }
