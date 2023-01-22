@@ -19,6 +19,7 @@ function createNavBar($Page){
             <a class="navbar-brand" href="Website.php"><img src="logo.png" width=200></a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">';
+                
                     if(isset($_SESSION['id'])){
                         foreach($PaginasProtegidas as $key => $Pagina){
                             $navbar = $navbar . '<li class="nav-item">

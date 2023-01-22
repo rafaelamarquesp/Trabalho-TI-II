@@ -5,49 +5,7 @@ if(isset($_SESSION['id'])) {
     header("Location: Website.php");
 }
 
-if(isset($_POST['username']) || isset($_POST['senha'])) {
 
-    if(strlen($_POST['username']) == 0) 
-    {
-        echo "Preencha seu username";
-    } 
-    else if(strlen($_POST['senha']) == 0) 
-    {
-        echo "Preencha sua senha";
-    } 
-    else 
-    {
-
-        $username = $mysqli->real_escape_string($_POST['username']);
-        $senha = $mysqli->real_escape_string($_POST['senha']);
-                    /* insert into  */
-        $sql_code = "SELECT * FROM usuarios WHERE username = '$username' AND senha = '$senha'";
-        $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
-
-        $quantidade = $sql_query->num_rows;
-
-        if($quantidade == 1) {
-            
-            $usuario = $sql_query->fetch_assoc();
-
-            if(!isset($_SESSION)) {
-                session_start();
-            }
-
-            $_SESSION['id'] = $usuario['id'];
-            $_SESSION['nome'] = $usuario['nome'];
-
-            header("Location: Website.php");
-
-        } 
-        else 
-        {
-            echo "Falha ao logar! username ou senha incorretos";
-        }
-
-    }
-
-}
 ?>
 <!DOCTYPE html>
 
@@ -76,6 +34,51 @@ if(isset($_POST['username']) || isset($_POST['senha'])) {
             <label id="titulo">Senha:</label>
             <input type="password" name="senha">
         </p>
+        <?php
+        if(isset($_POST['username']) || isset($_POST['senha'])) {
+
+            if(strlen($_POST['username']) == 0) 
+            {
+                echo  "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos" . "</p>";
+            } 
+            else if(strlen($_POST['senha']) == 0) 
+            {
+                echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos" . "</p>";
+            } 
+            else 
+            {
+        
+                $username = $mysqli->real_escape_string($_POST['username']);
+                $senha = $mysqli->real_escape_string($_POST['senha']);
+                           
+                $sql_code = "SELECT * FROM usuarios WHERE username = '$username' AND senha = '$senha'";
+                $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
+        
+                $quantidade = $sql_query->num_rows;
+        
+                if($quantidade == 1) {
+                    
+                    $usuario = $sql_query->fetch_assoc();
+        
+                    if(!isset($_SESSION)) {
+                        session_start();
+                    }
+        
+                    $_SESSION['id'] = $usuario['id'];
+                    $_SESSION['nome'] = $usuario['nome'];
+        
+                    header("Location: Website.php");
+        
+                } 
+                else 
+                {
+                    echo  "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Username ou password incorretos!" . "</p>";
+                }
+        
+            }
+        
+        }
+        ?>
         <p>
             <button id="submit" type="submit">Entrar</button>
         </p>
