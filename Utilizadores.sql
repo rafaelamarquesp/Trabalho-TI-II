@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS utilizador;
+/* DROP TABLE IF EXISTS utilizador;
 DROP TABLE IF EXISTS media;
 DROP TABLE IF EXISTS watched;
 
@@ -24,4 +24,4 @@ CREATE TABLE watched (
     PRIMARY KEY(nome, titulo)
 );
 
-CREATE DATABASE WebsiteDataBase;
+CREATE DATABASE WebsiteDataBase; */

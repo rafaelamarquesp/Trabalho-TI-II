@@ -18,7 +18,7 @@
 
     <div style="background-color: transparent;">
         <form class="d-flex " role="search ">
-            <input class="form-control me-2" id="searchBar" type=" search " placeholder="Search " aria-label="Search ">
+            <input class="form-control me-2" id="searchBar" type="search " placeholder="Search " aria-label="Search ">
             <button class="btn " id="search" type="submit ">Search</button>
         </form>
     </div>

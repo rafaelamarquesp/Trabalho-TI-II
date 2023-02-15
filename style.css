@@ -1,91 +1,222 @@
- body {
-     background: linear-gradient(white, #e0e0e0, grey);
- }
- 
- nav#bar {
-     background-color: linear-gradient( white, rgb(224, 224, 224), grey);
- }
- 
- label#titulo {
-     /* background-color: linear-gradient( white, rgb(224, 224, 224), grey); */
-     color: darkmagenta;
- }
- 
- .nav-link {
-     background-color: transparent;
-     border-color: grey;
-     color: darkmagenta!important;
- }
- 
- .navbar-nav .nav-link.active,
- .navbar-nav .show>.nav-link {
-     font-weight: 650;
- }
- 
- a#movies {
-     background-color: transparent;
-     border-color: grey;
-     color: darkmagenta;
- }
- 
- a#series {
-     background-color: transparent;
-     border-color: grey;
-     color: darkmagenta;
- }
- 
- button#menu {
-     background-color: transparent;
-     border-color: grey;
-     color: darkmagenta;
- }
- 
- button#submit {
-     background-color: white;
-     border-color: rgb(204, 204, 204);
-     color: darkmagenta;
- }
- 
- button#submit:hover {
-     background-color: darkmagenta;
-     border-color: grey;
-     color: white;
- }
- 
- button#search {
-     background-color: white;
-     border-color: rgb(134, 134, 134);
-     color: darkmagenta;
- }
- 
- #searchBar {
-     border-color: grey;
-     background-color: white;
- }
- 
- button#search:hover {
-     background-color: darkmagenta;
-     border-color: grey;
-     color: white;
- }
- 
- a#link {
-     text-decoration: none;
-     color: darkmagenta;
- }
- 
- h2#Signup {
-     background-color: white;
-     text-align: left;
-     color: darkmagenta;
- }
- 
- h2#Login {
-     background-color: white;
-     text-align: left;
-     color: darkmagenta;
- }
- 
- #filler {
-     flex-grow: 1;
- }
+    body {
+        background-image: linear-gradient(white, #e0e0e0, grey);
+        background-size: cover;
+        min-height: min-content;
+    }
+    
+    nav#bar {
+        background-color: linear-gradient( white, rgb(224, 224, 224), grey);
+    }
+    
+    label#titulo {
+        color: darkmagenta;
+    }
+    
+    label#message {
+        color: darkmagenta;
+        font-weight: 650;
+    }
+    
+    .nav-link {
+        background-color: transparent;
+        border-color: grey;
+        color: darkmagenta!important;
+    }
+    
+    .navbar-nav .nav-link.active,
+    .navbar-nav .show>.nav-link {
+        font-weight: 650;
+    }
+    
+    a#movies {
+        background-color: transparent;
+        border-color: grey;
+        color: darkmagenta;
+    }
+    
+    a#series {
+        background-color: transparent;
+        border-color: grey;
+        color: darkmagenta;
+    }
+    
+    a#hello {
+        margin-top: 3px;
+        color: darkmagenta;
+        font-weight: 500;
+        font-size: large;
+    }
+    
+    button#menu {
+        background-color: transparent;
+        border-color: grey;
+        color: darkmagenta;
+    }
+    
+    button#submit {
+        margin-left: 10px;
+        background-color: white;
+        border-color: rgba(139, 0, 139, 0.616);
+        border-width: thin;
+        border-radius: 5px;
+        color: darkmagenta;
+    }
+    
+    button#submit:hover {
+        background-color: darkmagenta;
+        border-color: grey;
+        color: white;
+    }
+    
+    button#editar {
+        margin-left: 50px;
+        background-color: white;
+        border-color: rgba(139, 0, 139, 0.616);
+        border-width: thin;
+        border-radius: 5px;
+        color: darkmagenta;
+        margin-top: 5px;
+    }
+    
+    button#editar:hover {
+        background-color: darkmagenta;
+        border-color: grey;
+        color: white;
+    }
+    
+    input#voltar {
+        margin-left: 10px;
+        background-color: white;
+        border-color: rgba(139, 0, 139, 0.616);
+        border-width: thin;
+        border-radius: 5px;
+        color: darkmagenta;
+        margin-top: 5px;
+    }
+    
+    input#voltar:hover {
+        background-color: darkmagenta;
+        border-color: grey;
+        color: white;
+    }
+    
+    input#atualizar {
+        margin-left: 10px;
+        background-color: white;
+        border-color: rgba(139, 0, 139, 0.616);
+        border-width: thin;
+        border-radius: 5px;
+        color: darkmagenta;
+        margin-top: 5px;
+    }
+    
+    input#atualizar:hover {
+        background-color: darkmagenta;
+        border-color: grey;
+        color: white;
+    }
+    
+    button#eliminar {
+        margin-left: 10px;
+        background-color: white;
+        border-color: rgba(139, 0, 139, 0.616);
+        border-width: thin;
+        border-radius: 5px;
+        color: darkmagenta;
+    }
+    
+    button#eliminarconf {
+        background-color: white;
+        border-color: rgba(139, 0, 139, 0.616);
+        border-width: thin;
+        border-radius: 5px;
+        color: darkmagenta;
+    }
+    
+    button#eliminar:hover {
+        background-color: darkmagenta;
+        border-color: grey;
+        color: white;
+    }
+    
+    button#search {
+        background-color: white;
+        border-color: rgb(134, 134, 134);
+        color: darkmagenta;
+    }
+    
+    #searchBar {
+        border-color: grey;
+        background-color: white;
+    }
+    
+    button#search:hover {
+        background-color: darkmagenta;
+        border-color: grey;
+        color: white;
+    }
+    
+    a#link {
+        text-decoration: none;
+        color: darkmagenta;
+    }
+    
+    h2#Signup {
+        background-color: white;
+        text-align: left;
+        color: darkmagenta;
+    }
+    
+    h2#Login {
+        background-color: white;
+        text-align: left;
+        color: darkmagenta;
+    }
+    
+    #filler {
+        flex-grow: 1;
+    }
+    
+    table#meusDados {
+        width: 30%;
+        margin-left: 40px;
+        margin-top: 30px;
+        padding: 20px;
+        border: transparent;
+        border-radius: 20px;
+        text-align: justify;
+        background-color: rgb(252, 252, 252);
+        inline-size: 550px;
+    }
+    
+    form#meuForm {
+        margin-left: 40px;
+        margin-top: 30px;
+        border-style: solid;
+        padding: 20px;
+        border-width: thin;
+        border-radius: 25px;
+        border-color: rgb(177, 177, 177);
+        text-align: center;
+        background-color: rgb(247, 247, 247);
+        inline-size: 420px;
+    }
+    
+    form#meuFormDel {
+        margin-left: 40px;
+        margin-top: 30px;
+        border-style: solid;
+        padding: 20px;
+        border-width: thin;
+        border-radius: 25px;
+        border-color: rgb(177, 177, 177);
+        text-align: center;
+        background-color: rgb(247, 247, 247);
+        inline-size: 350px;
+    }
+    
+    input#inputBox {
+        border-width: thin;
+        inline-size: 60%;
+        border-radius: 6px;
+    }

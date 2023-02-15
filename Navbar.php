@@ -10,8 +10,7 @@ function createNavBar($Page){
         "Movies" => "MoviesPage.php",
         "Series" => "SeriesPage.php",
     );
-    $navbar = '
-    <nav class="navbar navbar-expand-lg" id="bar">
+    $navbar = '<nav class="navbar navbar-expand-lg" id="bar">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" id="menu" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -44,8 +43,7 @@ function createNavBar($Page){
 
     if(isset($_SESSION['id'])) {
         $navbar = $navbar .
-            '
-    <a class="navbar-brand"> Hello, ' . $_SESSION["nome"] . '</a>
+            '<a id=hello class="navbar-brand"> Hello, ' . $_SESSION["nome"] . '</a>
          <li class="nav-item">
              <a class="nav-link" id="logout" href="Logout.php">Log out</a>
          </li>';
@@ -66,8 +64,6 @@ function createNavBar($Page){
         $navbar = $navbar . '" id="login" href=" LogIn.php ">Log In</a>
         </li>';
     }
-
-
     $navbar = $navbar . '</ul></div>
         </div>
     </nav>';

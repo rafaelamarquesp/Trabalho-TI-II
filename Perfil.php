@@ -1,5 +1,6 @@
 <?php
     include('Navbar.php');
+    include('BaseDados.php');
     include('protect.php');
 ?>
 <!DOCTYPE html>
@@ -16,7 +17,37 @@
 </head>
 
 <body style="height:auto">
-    <?php echo createNavBar("Perfil") ?>
+    <?php 
+        echo createNavBar("Perfil");
+        
+        $id=$_SESSION['id'];
+        
+        $q=$mysqli->query("SELECT * FROM usuarios WHERE id='$id'");
+        $res=mysqli_fetch_assoc($q);
+        
+        echo '<table class="table" id="meusDados">
+        <tr>
+            <th>Id número:</th>
+            <td>'.$res['id'].'</td> 
+        </tr> 
+        <tr>
+            <th>Nome:</th>
+            <td>'.$res['nome'].'</td>
+            </tr> 
+            <tr>
+            <th>Username:</th>
+            <td>'.$res['username'].'</td>
+            </tr> 
+            <tr>
+            <th>Email:</th>
+            <td>'.$res['email'].'</td>
+        </tr> 
+        </table>';
+    ?>
+    <p>
+        <button id="editar" onclick="window.location.href='Edit.php'" >Editar dados</button>
+        <button id="eliminar"onclick="window.location.href='Delete.php'">Eliminar conta</button>
+    </p>
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js " integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN " crossorigin="anonymous ">
     </script>
 

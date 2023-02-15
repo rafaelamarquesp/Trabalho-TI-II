@@ -22,18 +22,15 @@ if(isset($_SESSION['id'])) {
 
 <body>
     <?php echo createNavBar("LogIn") ?>
-
-    <p></p>
     
-    <form action="" method="POST" style="margin-left: 20px">
-        <p>
-            <label id="titulo">Username:</label>
-            <input type="text" name="username">
-        </p>
-        <p>
-            <label id="titulo">Senha:</label>
-            <input type="password" name="senha">
-        </p>
+    <form action="" method="POST" id="meuForm">
+        <label id="titulo">Username:</label>
+        <p><input type="text" name="username" id="inputBox"></p>
+        
+        <label id="titulo">Senha:</label>
+        <p><input type="password" name="senha" id="inputBox"></p>
+        
+        
         <?php
         if(isset($_POST['username']) || isset($_POST['senha'])) {
 
@@ -79,9 +76,7 @@ if(isset($_SESSION['id'])) {
         
         }
         ?>
-        <p>
-            <button id="submit" type="submit">Entrar</button>
-        </p>
+        <button id="submit" type="submit">Entrar</button>
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js " integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN " crossorigin="anonymous "></script>
