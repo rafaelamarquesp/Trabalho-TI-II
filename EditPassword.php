@@ -65,8 +65,7 @@
                         if($quantidade == 1 ) {
                             echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "A nova password não pode ser igual à anterior" . "</p>";
                         } else {
-                            $_SESSION["nome"] = $nome;
-                            
+
                             $sql_code = "UPDATE usuarios SET senha ='$senha' WHERE id='$id'";
                             $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
                             
