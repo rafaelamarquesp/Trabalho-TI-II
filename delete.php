@@ -21,8 +21,7 @@
     
         $id=$_SESSION['id'];
             
-        $q=$mysqli->query("SELECT * FROM usuarios WHERE id=$id");
-        $res=mysqli_fetch_assoc($q);
+       
     ?>
     <form method="POST" id="meuFormDel">
 
