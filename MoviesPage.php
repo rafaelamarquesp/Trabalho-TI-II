@@ -38,26 +38,26 @@
                 // Verificar se sessão esta ativa
                 if (isset($_SESSION["id"])) {
                     // Se sim tem-se checkbox
-                    $html = $html . '<form method="POST">'; 
+                    $html = $html . '<form method="POST"> <input type="hidden" name="form-title" value="' . $result["titulo"] . '>'; 
                     $stmt = $pdo->prepare('SELECT * FROM vistos WHERE titulo = ? AND id = ?');
                     $stmt->execute([$result["titulo"], $_SESSION["id"]]);
                     if ($stmt->rowCount() != 0) {
                         // Se o utilizador ja viu a checkbox esta ativa
                         $html = $html . 
-                        '<input type="checkbox" class="check" name="visto" value="' . $result["titulo"] . '"checked >Visto</input>';
+                        '<input type="checkbox" class="check" name="visto" checked >Visto</input>';
                     } else {
                         $html = $html .
-                        '<input type="checkbox" class="check" name="visto" value="' . $result["titulo"] . '" >Visto</input>';
+                        '<input type="checkbox" class="check" name="visto" >Visto</input>';
                     }
                     $stmt = $pdo->prepare('SELECT * FROM para_ver WHERE titulo = ? AND id = ?');
                     $stmt->execute([$result["titulo"], $_SESSION["id"]]);
                     if ($stmt->rowCount() != 0) {
                         // Se o utilizador ja registrou na lista para ver a checkbox esta ativa
                         $html = $html .
-                        '<input type="checkbox" class="check" name="pver" value="' . $result["titulo"] . '" checked>Para ver</input>';
+                        '<input type="checkbox" class="check" name="pver" checked>Para ver</input>';
                     } else {
                         $html = $html .
-                        '<input type="checkbox" class="check"  name="pver" value="' . $result["titulo"] . '" >Para ver</input>';
+                        '<input type="checkbox" class="check"  name="pver" >Para ver</input>';
                     }
                     $html = $html . '<input type="submit" name="submit">'; 
                     $html = $html . '</form>'; 
@@ -66,28 +66,24 @@
                 echo $html;
             }
             if($_SERVER["REQUEST_METHOD"] === "POST") {
-
+                $titulo = $_POST["form-title"];
                 if (isset($_POST["visto"])) {
                     // adicionar a bd
-                    $titulo = $_POST["visto"];
                     $stmt = $pdo->prepare("INSERT INTO vistos(titulo, id) VALUES (?, ?)");
                     $stmt->execute([$titulo, $_SESSION["id"]]);
                 } else {
                     // remover da bd
-                    $titulo = $_POST["visto"];
                     $stmt = $pdo->prepare("DELETE FROM vistos WHERE id=? AND titulo=?");
                     $stmt->execute([$titulo, $_SESSION["id"]]);
                 }
                 if (isset($_POST["pver"])) {
                     // adicionar a bd
-                    $titulo = $_POST["pver"];
                     $stmt = $pdo->prepare("INSERT INTO para_ver(titulo, id) VALUES (?, ?)");
                     $stmt->execute([$titulo, $_SESSION["id"]]);
                 } else {
                     // remover da bd
-                    $titulo = $_POST["pver"];
                     $stmt = $pdo->prepare("DELETE FROM para_ver WHERE id=? AND titulo=?");
-                $stmt->execute([$titulo, $_SESSION["id"]]);
+                    $stmt->execute([$titulo, $_SESSION["id"]]);
                 }
             }
             ?>
