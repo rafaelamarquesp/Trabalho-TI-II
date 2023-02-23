@@ -18,16 +18,24 @@
     <?php echo createNavBar("Movies");?>
 
     <div style="background-color: transparent;">
-        <form class="d-flex " role="search ">
+        <form class="d-flex" role="search ">
             <input class="form-control me-2" id="searchBar" type=" search " placeholder="Search " aria-label="Search ">
             <button class="btn " id="search" type="submit ">Search</button>
         </form>
     </div>
     <div class="movie-container">
         <?php
-            // Obter lista de filmes
-            $stmt = $pdo->query('SELECT * FROM media WHERE tipo IN (0, 2)');
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(isset($_GET["mystring"])) {
+                // Obter filme pesquisado
+                $titulo = [$_GET["mystring"]]; 
+                $stmt = $pdo->prepare('SELECT * FROM media WHERE tipo IN (0, 2) AND titulo LIKE ?%');
+                $stmt->execute([$titulo]);
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                // Obter lista de filmes
+                $stmt = $pdo->query('SELECT * FROM media WHERE tipo IN (0, 2)');
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
             // Iterar sobre os filmes
             foreach ($results as $result) {
                 // Estrutura div para um filme
@@ -38,7 +46,7 @@
                 // Verificar se sessão esta ativa
                 if (isset($_SESSION["id"])) {
                     // Se sim tem-se checkbox
-                    $html = $html . '<form method="POST"> <input type="hidden" name="form-title" value="' . $result["titulo"] . '>'; 
+                    $html = $html . '<form method="POST"> <input type="hidden" name="form-title" value="' . $result["titulo"] . '">'; 
                     $stmt = $pdo->prepare('SELECT * FROM vistos WHERE titulo = ? AND id = ?');
                     $stmt->execute([$result["titulo"], $_SESSION["id"]]);
                     if ($stmt->rowCount() != 0) {
@@ -66,6 +74,14 @@
                 echo $html;
             }
             if($_SERVER["REQUEST_METHOD"] === "POST") {
+                if(isset($_POST['search'])) {
+                    // Pesquisa de titulo
+                    $titulo = $_POST['search'];
+                    $queryString = http_build_query([ // Construir msg para passar pelo header
+                        'mystring' => $titulo
+                    ]);
+                    header("Location:MoviesPage.php?$queryString");
+                }
                 $titulo = $_POST["form-title"];
                 if (isset($_POST["visto"])) {
                     // adicionar a bd
@@ -73,7 +89,7 @@
                     $stmt->execute([$titulo, $_SESSION["id"]]);
                 } else {
                     // remover da bd
-                    $stmt = $pdo->prepare("DELETE FROM vistos WHERE id=? AND titulo=?");
+                    $stmt = $pdo->prepare("DELETE FROM vistos WHERE titulo=? AND id=?");
                     $stmt->execute([$titulo, $_SESSION["id"]]);
                 }
                 if (isset($_POST["pver"])) {
@@ -82,9 +98,10 @@
                     $stmt->execute([$titulo, $_SESSION["id"]]);
                 } else {
                     // remover da bd
-                    $stmt = $pdo->prepare("DELETE FROM para_ver WHERE id=? AND titulo=?");
+                    $stmt = $pdo->prepare("DELETE FROM para_ver WHERE titulo=? AND id=?");
                     $stmt->execute([$titulo, $_SESSION["id"]]);
                 }
+                header("Location:MoviesPage.php");
             }
             ?>
     </div>
