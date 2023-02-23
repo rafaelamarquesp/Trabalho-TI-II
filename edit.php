@@ -19,10 +19,11 @@
 <body style="height:auto">
     <?php echo createNavBar("Perfil");
     
-        $id=$_SESSION['id'];
+    $id = $_SESSION['id'];
             
-        $q=$mysqli->query("SELECT * FROM usuarios WHERE id='$id'");
-        $res=mysqli_fetch_assoc($q);
+    $q = $pdo->prepare("SELECT * FROM usuarios WHERE id=:id");
+    $q->execute(array(':id' => $id));
+    $res = $q->fetch(PDO::FETCH_ASSOC);
      
     ?>
     <form action="" method="POST" id="meuForm">
@@ -59,27 +60,30 @@
                 } 
                 else 
                 {
-                    $nome = $mysqli->real_escape_string($_POST['nome']);
-                    $data_ = $mysqli->real_escape_string($_POST['data_']);
-                    $email = $mysqli->real_escape_string($_POST['email']);
-                    $username = $mysqli->real_escape_string($_POST['username']);
-                                    
-                    $sql_code = "SELECT * FROM usuarios WHERE (username = '$username' OR email = '$email') AND NOT id = '$id'";
-                    $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
-                                
-                    $quantidade = $sql_query->num_rows;
-                    $usuario = $sql_query->fetch_assoc();
-                                    
-                    if($quantidade == 1 ) {
-                        echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Já existe uma conta com username ou email inseridos" . "</p>";
+                    $nome = $_POST['nome'];
+                    $data_ =$_POST['data_'];
+                    $email = $_POST['email'];
+                    $username = $_POST['username'];
+                    
+                    $sql_code = "SELECT * FROM usuarios WHERE (username = ? OR email = ?) AND NOT id = ?";
+                    $stmt = $pdo->prepare($sql_code);
+                    $stmt->execute([$username, $email, $id]);
+
+                    
+                    $quantidade = $stmt->rowCount();
+                    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+                    
+                    if ($quantidade == 1) {
+                        echo "<p style='font-weight: 650;'><img src='alert.png' width=50/>Já existe uma conta com username ou email inseridos</p>";
                     } else {
                         $_SESSION["nome"] = $nome;
-                        $sql_code = "UPDATE usuarios SET nome ='$nome', data_='$data_' , email='$email', username='$username' WHERE id='$id'";
-                        $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
-
-                        header("Location: Perfil.php");    
+                        $sql_code = "UPDATE usuarios SET nome = ?, data_ = ?, email = ?, username = ? WHERE id = ?";
+                        $stmt = $pdo->prepare($sql_code);
+                        $stmt->execute([$nome, $data_, $email, $username, $id]);
+                    
+                        header("Location: Perfil.php");
                     }
-                }    
+                }
             }
         ?>
         <input type= "button" id="voltar" type="none" onclick="window.location.href='./Perfil.php'" value="Voltar"/>

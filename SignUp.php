@@ -17,7 +17,7 @@
 </head>
 <p></p>
 <body>
-    <?php echo createNavBar("SignUp") ?>
+    <?php echo createNavBar("SignUp")?>
     
     <form action="" method="POST" id="meuForm">
         <label id="titulo">Nome:</label>
@@ -37,78 +37,59 @@
         
         <label id="titulo">Confimar Password:</label>
         <p><input type="password" name="senhaconf" id="inputBox"></p>
-        
-        <?php 
-        if(isset($_POST['nome']) || isset($_POST['data_']) || isset($_POST['email']) || isset($_POST['username']) || isset($_POST['senha']))
+
+        <?php
+    if(isset($_POST['nome']) || isset($_POST['data_']) || isset($_POST['email']) || isset($_POST['username']) || isset($_POST['senha']))
+    {
+        if(strlen($_POST['nome']) == 0 || strlen($_POST['data_']) == 0 || strlen($_POST['email']) == 0 || strlen($_POST['username']) == 0 || strlen($_POST['senha']) == 0 || strlen($_POST['senhaconf']) == 0) {
+            echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos" . "</p>";
+        } 
+        else 
         {
-            if(strlen($_POST['nome']) == 0) {
-                echo   "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos" . "</p>";
-                
-            }
-            else if(strlen($_POST['data_']) == 0) 
-            {
-                echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos". "</p>";
-            } 
-        
-            else if(strlen($_POST['email']) == 0) 
-            {
-                echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos" . "</p>";
-            } 
-        
-            else if(strlen($_POST['username']) == 0) 
-            {
-                echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos" . "</p>";
-            } 
-            else if(strlen($_POST['senha']) == 0) 
-            {
-                echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos" . "</p>";
-            }
-            else if(strlen($_POST['senhaconf']) == 0) 
-            {
-                echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos" . "</p>";
-            }
-            else 
-            {
-                $nome = $mysqli->real_escape_string($_POST['nome']);
-                $data_ = $mysqli->real_escape_string($_POST['data_']);
-                $email = $mysqli->real_escape_string($_POST['email']);
-                $username = $mysqli->real_escape_string($_POST['username']);
-                $senha = $mysqli->real_escape_string($_POST['senha']);
-                $senhaconf = $mysqli->real_escape_string($_POST['senhaconf']);
-
-                strcmp( $senha,  $senhaconf);
-
-                if(strcmp( $senha,  $senhaconf) != 0)
+                $nome = $_POST['nome'];
+                $data_ = $_POST['data_'];
+                $email = $_POST['email'];
+                $username = $_POST['username'];
+                $senha = $_POST['senha'];
+                $senhaconf = $_POST['senhaconf'];
+    
+                if(strcmp($senha, $senhaconf) != 0)
                 {
                     echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' .  "Inseriu passwords diferentes" . "</p>";
-                } else{
-
-                    $sql_code = "SELECT * FROM usuarios WHERE username = '$username' OR email = '$email'";
-                    $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
-                    
-                    $quantidade = $sql_query->num_rows;
-                    
-                    if($quantidade ==  1) {
+                } 
+                else 
+                {
+                    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = ? OR email = ?");
+                    $stmt->execute([$username, $email]);
+                    $quantidade = $stmt->rowCount();
+    
+                    if($quantidade == 1) 
+                    {
                         echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Já existe uma conta com username ou email inseridos" . "</p>";
-                    } else {              
-                        $sql_code = "INSERT INTO usuarios (nome, data_, email, username, senha) VALUES ('$nome', '$data_' , '$email', '$username', '$senha')";
-                        $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
-                        $sql_code = "SELECT * FROM usuarios WHERE username = '$username' AND senha = '$senha'";
-                        $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
-                        
-                        $usuario = $sql_query->fetch_assoc();
-                        
+                    } 
+                    else 
+                    {              
+                        $stmt = $pdo->prepare("INSERT INTO usuarios (nome, data_, email, username, senha) VALUES (?, ?, ?, ?, ?)");
+                        $stmt->execute([$nome, $data_, $email, $username, $senha]);
+    
+                        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = ? AND senha = ?");
+                        $stmt->execute([$username, $senha]);
+    
+                        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+    
                         if(!isset($_SESSION)) {
                             session_start();
                         }
                         $_SESSION['id'] = $usuario['id'];
                         $_SESSION['nome'] = $usuario['nome'];
-                        
+    
                         header("Location: Website.php");
                     }
                 }                  
-            }
-        }?>
+        }
+    }
+    ?>
+        
         <button id="submit" type="submit">Submeter</button>
         
     </form>

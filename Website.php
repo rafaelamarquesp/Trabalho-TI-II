@@ -19,8 +19,8 @@
     <?php echo createNavBar("Principal") ?>
     <div style="background-color: transparent;">
         <form class=" d-flex " role="search ">
-            <input class="form-control me-2 " id="searchBar " type=" search " placeholder="Search " aria-label="Search ">
-            <button class="btn " id="search" type="submit ">Search</button>
+            <!-- <input class="form-control me-2 " id="searchBar " type=" search " placeholder="Search " aria-label="Search ">
+            <button class="btn " id="search" type="submit ">Search</button> -->
         </form>
     </div>
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js " integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN " crossorigin="anonymous ">

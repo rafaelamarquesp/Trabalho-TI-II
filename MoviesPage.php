@@ -1,4 +1,7 @@
-<?php include('Navbar.php') ?>
+<?php
+    include('Navbar.php');
+    include('BaseDados.php');
+?>
 <!DOCTYPE html>
 <html lang="en" style="height:100%">
 <link rel="stylesheet" href="style.css">

@@ -43,29 +43,27 @@
             }
                 else 
                 {
-                    $senha = $mysqli->real_escape_string($_POST['senha']);
-                    $senhaconf = $mysqli->real_escape_string($_POST['senhaconf']);
+                    $senha = $_POST['senha'];
+                    $senhaconf = $_POST['senhaconf'];
                     
-                    strcmp( $senha,  $senhaconf);
-
-                    if(strcmp( $senha,  $senhaconf) != 0)
+                    if($senha != $senhaconf)
                     {
                     echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' .  "Inseriu passwords diferentes" . "</p>";
                     }else{
                         
-                        $sql_code = "SELECT * FROM usuarios WHERE (senha = '$senha') ";
-                        $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
-                        
-                        $quantidade = $sql_query->num_rows;
-                        $usuario = $sql_query->fetch_assoc();
+                        $sql_code = "SELECT * FROM usuarios WHERE senha = ?";
+                        $stmt = $pdo->prepare($sql_code);
+                        $stmt->execute([$senha]);
+                        $quantidade = $stmt->rowCount();
+                        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                         
                         if($quantidade == 1 ) {
                             echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "A nova password não pode ser igual à anterior" . "</p>";
                         } else {
 
-                            $sql_code = "UPDATE usuarios SET senha ='$senha' WHERE id='$id'";
-                            $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
-                            
+                            $sql_code = "UPDATE usuarios SET senha = ? WHERE id = ?";
+                            $stmt = $pdo->prepare($sql_code);
+                            $stmt->execute([$senha, $id]);
                             header("Location: Perfil.php");    
                         }    
                     }

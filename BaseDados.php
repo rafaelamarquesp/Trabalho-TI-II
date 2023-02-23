@@ -5,8 +5,15 @@ $senha = '';
 $database = 'utilizadores';
 $host = 'localhost';
 
-$mysqli = new mysqli($host, $usuario, $senha, $database);
-
-if($mysqli->error) {
-    die("Falha ao conectar ao banco de dados: " . $mysqli->error);
+try {
+    $pdo= new pdo("mysql:host=localhost;dbname=utilizadores", "root", "", [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+} catch (PDOException $erro) {
+    echo "Erro: " .  $erro->getMessage();
 }
+
+// $mysqli = new mysqli($host, $usuario, $senha, $database);
+
+// if($mysqli->error) {
+//     die("Falha ao conectar ao banco de dados: " . $mysqli->error);
+// }
+

@@ -1,10 +1,12 @@
 <?php
 include('BaseDados.php');
 include('Navbar.php');
-if(isset($_SESSION['id'])) {
-    header("Location: Website.php");
-}
 
+if(isset($_SESSION['id'])) {
+
+    header("Location: Website.php");
+    exit();
+}
 
 ?>
 <!DOCTYPE html>
@@ -33,29 +35,21 @@ if(isset($_SESSION['id'])) {
         
         <?php
         if(isset($_POST['username']) || isset($_POST['senha'])) {
-
-            if(strlen($_POST['username']) == 0) 
-            {
+            if(strlen($_POST['username']) == 0 || strlen($_POST['senha']) == 0) {
                 echo  "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos" . "</p>";
             } 
-            else if(strlen($_POST['senha']) == 0) 
-            {
-                echo "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Por favor preencha todos os campos" . "</p>";
-            } 
-            else 
-            {
-        
-                $username = $mysqli->real_escape_string($_POST['username']);
-                $senha = $mysqli->real_escape_string($_POST['senha']);
+            else {
+                $username = $_POST['username'];
+                $senha = $_POST['senha'];
                            
-                $sql_code = "SELECT * FROM usuarios WHERE username = '$username' AND senha = '$senha'";
-                $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
+                $sql_code = "SELECT * FROM usuarios WHERE username = ? AND senha = ?";
+                $stmt = $pdo->prepare($sql_code);
+                $stmt->execute([$username, $senha]);
         
-                $quantidade = $sql_query->num_rows;
+                $quantidade = $stmt->rowCount();
         
                 if($quantidade == 1) {
-                    
-                    $usuario = $sql_query->fetch_assoc();
+                    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         
                     if(!isset($_SESSION)) {
                         session_start();
@@ -65,15 +59,13 @@ if(isset($_SESSION['id'])) {
                     $_SESSION['nome'] = $usuario['nome'];
         
                     header("Location: Website.php");
-        
+                    exit();
                 } 
-                else 
-                {
+                else {
                     echo  "<p style='font-weight: 650;'>" .'<img src="alert.png"  width=50/>' . "Username ou password incorretos!" . "</p>";
                 }
         
             }
-        
         }
         ?>
         <button id="submit" type="submit">Entrar</button>
@@ -84,3 +76,4 @@ if(isset($_SESSION['id'])) {
 </body>
 
 </html>
+

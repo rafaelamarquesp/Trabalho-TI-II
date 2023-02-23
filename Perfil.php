@@ -22,8 +22,9 @@
         
         $id=$_SESSION['id'];
         
-        $q=$mysqli->query("SELECT * FROM usuarios WHERE id='$id'");
-        $res=mysqli_fetch_assoc($q);
+        $q = $pdo->prepare("SELECT * FROM usuarios WHERE id=:id");
+        $q->execute(array(':id' => $id));
+        $res = $q->fetch(PDO::FETCH_ASSOC);
         
         echo '<table class="table" id="meusDados">
         <tr>
@@ -35,12 +36,17 @@
             <td>'.$res['nome'].'</td>
             </tr> 
             <tr>
+            <th>Data de nascimento:</th>
+            <td>'.$res['data_'].'</td>
+            </tr> 
+            <tr>
             <th>Username:</th>
             <td>'.$res['username'].'</td>
             </tr> 
             <tr>
             <th>Email:</th>
             <td>'.$res['email'].'</td>
+            
         </tr> 
         </table>';
     ?>
