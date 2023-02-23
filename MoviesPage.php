@@ -38,38 +38,33 @@
                 // Verificar se sessão esta ativa
                 if (isset($_SESSION["id"])) {
                     // Se sim tem-se checkbox
-                    $html = $html . '<form method="POST">'; 
+                    $html = $html . '<form method="POST" action="process-form.php">'; 
                     $stmt = $pdo->prepare('SELECT * FROM vistos WHERE titulo = ? AND id = ?');
                     $stmt->execute([$result["titulo"], $_SESSION["id"]]);
                     if ($stmt->rowCount() != 0) {
                         // Se o utilizador ja viu a checkbox esta ativa
-                        $html = $html .
-                        '<input type="checkbox" class="check" name="visto" checked >Visto</input>';
+                        $html = $html . 
+                        '<input type="checkbox" class="check" name="visto" value="' . $result["titulo"] . '"checked >Visto</input>';
                     } else {
                         $html = $html .
-                        '<input type="checkbox" class="check" name="visto" >Visto</input>';
+                        '<input type="checkbox" class="check" name="visto" value="' . $result["titulo"] . '" >Visto</input>';
                     }
                     $stmt = $pdo->prepare('SELECT * FROM para_ver WHERE titulo = ? AND id = ?');
                     $stmt->execute([$result["titulo"], $_SESSION["id"]]);
                     if ($stmt->rowCount() != 0) {
                         // Se o utilizador ja registrou na lista para ver a checkbox esta ativa
                         $html = $html .
-                        '<input type="checkbox" class="check" name="pver" checked>Para ver</input>';
+                        '<input type="checkbox" class="check" name="pver" value="' . $result["titulo"] . '" checked>Para ver</input>';
                     } else {
                         $html = $html .
-                        '<input type="checkbox" class="check"  name="pver" >Para ver</input>';
+                        '<input type="checkbox" class="check"  name="pver" value="' . $result["titulo"] . '" >Para ver</input>';
                     }
                     $html = $html . '<input type="submit" name="submit">'; 
                     $html = $html . '</form>'; 
                 }
                 $html = $html . '</div>';
                 echo $html;
-                /*if (isset($_POST["visto"])) {
-
-                }
-                if (isset($_POST["visto"])) {
-
-                }*/
+                
             }
         ?>
     </div>
