@@ -38,7 +38,7 @@
                 // Verificar se sessão esta ativa
                 if (isset($_SESSION["id"])) {
                     // Se sim tem-se checkbox
-                    $html = $html . '<form method="POST" action="process-form.php">'; 
+                    $html = $html . '<form method="POST">'; 
                     $stmt = $pdo->prepare('SELECT * FROM vistos WHERE titulo = ? AND id = ?');
                     $stmt->execute([$result["titulo"], $_SESSION["id"]]);
                     if ($stmt->rowCount() != 0) {
@@ -64,9 +64,33 @@
                 }
                 $html = $html . '</div>';
                 echo $html;
-                
             }
-        ?>
+            if($_SERVER["REQUEST_METHOD"] === "POST") {
+
+                if (isset($_POST["visto"])) {
+                    // adicionar a bd
+                    $titulo = $_POST["visto"];
+                    $stmt = $pdo->prepare("INSERT INTO vistos(titulo, id) VALUES (?, ?)");
+                    $stmt->execute([$titulo, $_SESSION["id"]]);
+                } else {
+                    // remover da bd
+                    $titulo = $_POST["visto"];
+                    $stmt = $pdo->prepare("DELETE FROM vistos WHERE id=? AND titulo=?");
+                    $stmt->execute([$titulo, $_SESSION["id"]]);
+                }
+                if (isset($_POST["pver"])) {
+                    // adicionar a bd
+                    $titulo = $_POST["pver"];
+                    $stmt = $pdo->prepare("INSERT INTO para_ver(titulo, id) VALUES (?, ?)");
+                    $stmt->execute([$titulo, $_SESSION["id"]]);
+                } else {
+                    // remover da bd
+                    $titulo = $_POST["pver"];
+                    $stmt = $pdo->prepare("DELETE FROM para_ver WHERE id=? AND titulo=?");
+                $stmt->execute([$titulo, $_SESSION["id"]]);
+                }
+            }
+            ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js " integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN " crossorigin="anonymous "></script>
 </body>
